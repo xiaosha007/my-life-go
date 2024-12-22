@@ -7,6 +7,7 @@ import (
 
 	"github.com/xiaosha007/my-life-go/internal/config"
 	"github.com/xiaosha007/my-life-go/internal/db"
+	"github.com/xiaosha007/my-life-go/internal/monitoring"
 	"github.com/xiaosha007/my-life-go/internal/router"
 )
 
@@ -20,7 +21,9 @@ func main() {
 
 	db.InitConnection(configData.DB)
 
-	r := router.NewRouter()
+	statsdClient := monitoring.NewStatsdClient(configData.Statsd)
+
+	r := router.NewRouter(statsdClient)
 
 	port := 8080
 

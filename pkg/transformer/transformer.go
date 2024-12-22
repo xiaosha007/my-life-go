@@ -12,3 +12,8 @@ func StringToInt(s string) (int, error) {
 	}
 	return value, nil
 }
+
+func IntToString(i int) string {
+	return strconv.Itoa(i)
+
+}

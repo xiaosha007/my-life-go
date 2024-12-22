@@ -8,11 +8,13 @@ import (
 
 	"github.com/joho/godotenv"
 	"github.com/xiaosha007/my-life-go/internal/db"
+	"github.com/xiaosha007/my-life-go/internal/monitoring"
 	"github.com/xiaosha007/my-life-go/pkg/transformer"
 )
 
 type Config struct {
-	DB *db.Config
+	DB     *db.Config
+	Statsd *monitoring.StatsdClientConfig
 }
 
 func GetConfig() *Config {
@@ -23,6 +25,11 @@ func GetConfig() *Config {
 			Password: os.Getenv("DB_PASSWORD"),
 			DBName:   os.Getenv("DB_NAME"),
 			SSLMode:  os.Getenv("DB_SSLMODE"),
+		},
+		Statsd: &monitoring.StatsdClientConfig{
+			Namespace: os.Getenv("STATSD_NAMESPACE"),
+			Host:      os.Getenv("STATSD_HOST"),
+			Port:      getEnvAsInt("STATSD_PORT", 8125),
 		},
 	}
 

@@ -9,19 +9,19 @@ import (
 )
 
 type IUserService interface {
-	GetByID(id int) (model.User, error)
+	GetByID(id int) (*model.User, error)
 	Create(user *model.User) error
 }
 
 type UserService struct {
 }
 
-func (s *UserService) GetByID(id int) (model.User, error) {
+func (s *UserService) GetByID(id int) (*model.User, error) {
 	var user model.User
 
 	err := db.DB.Get(&user, "SELECT * FROM users WHERE id = $1", id)
 
-	return user, err
+	return &user, err
 }
 
 func (s *UserService) Create(user *model.User) error {
