@@ -13,8 +13,9 @@ import (
 )
 
 type Config struct {
-	DB     *db.Config
-	Statsd *monitoring.StatsdClientConfig
+	DB        *db.Config
+	Statsd    *monitoring.StatsdClientConfig
+	JwtSecret string
 }
 
 func GetConfig() *Config {
@@ -31,6 +32,7 @@ func GetConfig() *Config {
 			Host:      os.Getenv("STATSD_HOST"),
 			Port:      getEnvAsInt("STATSD_PORT", 8125),
 		},
+		JwtSecret: os.Getenv("JWT_SECRET"),
 	}
 
 	return config

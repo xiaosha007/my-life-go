@@ -7,3 +7,9 @@ func Encrypt(input string) (string, error) {
 
 	return string(hashedPassword), err
 }
+
+func IsSame(inputPlainPassword, encryptedPassword string) bool {
+	err := bcrypt.CompareHashAndPassword([]byte(encryptedPassword), []byte(inputPlainPassword))
+
+	return err == nil
+}

@@ -23,7 +23,7 @@ func main() {
 
 	statsdClient := monitoring.NewStatsdClient(configData.Statsd)
 
-	r := router.NewRouter(statsdClient)
+	r := router.NewRouter(statsdClient, configData.JwtSecret)
 
 	port := 8080
 
